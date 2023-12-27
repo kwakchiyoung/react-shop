@@ -1,3 +1,12 @@
+.main-bg {
+  height: 300px;
+  background-image: url("./img/bg.png");
+  /* cover 값은 배경 이미지가 요소의 전체 영역을 덮도록 합니다. 이는 이미지가 요소의 가로와 세로 둘 중 더 긴 쪽에 맞춰져 확장되거나 축소됨을 의미합니다. 비율은 유지된다. */
+  background-size: cover;
+  /* 디폴트값은 왼쪽이라 중앙으로 사진을 정렬시킨다. 늘려도 중앙에서 늘어남 */
+  background-position: center;
+}
+
 .App {
   text-align: center;
 }
