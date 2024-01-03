@@ -4,52 +4,78 @@ import { useState } from "react";
 // export했던 작명 그대로 써줘야함
 // import { a, b } from "./data.js";
 import data from "./data.js";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
+import Detail from "./routes/Detail.js";
 
 function App() {
+  // 훅 : useState
   let [shoes] = useState(data);
+  // 훅 : useNavigate - 페이지 이동도와주는
+  let navigate = useNavigate();
+  // 재미있는 기능 : navigate(1) 앞으로가기 navigate(-1) 뒤로가기
   return (
     <div className="App">
       <Navbar bg="light" data-bs-theme="light">
         <Container>
           <Navbar.Brand href="#home">무신사</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Cart</Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Home
+            </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate("/detail");
+              }}
+            >
+              Detail
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
 
-      <div className="main-bg"></div>
+      {/* 페이지 이동버튼은 <Link> */}
+      <Link to="/">홈</Link>
+      <Link to="/detail">상세페이지</Link>
 
-      <div className="container">
-        <div className="row">
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes1.jpg"
-              width="80%"
-            />
-            <h4>{shoes[0].title}</h4>
-            <p>{shoes[0].price}</p>
-          </div>
-          <div className="col-md-4">
-            {/* src={process.env.PUBLIC_URL + "/logo192.png"} */}
-            <img
-              src="https://codingapple1.github.io/shop/shoes2.jpg"
-              width="80%"
-            />
-            <h4>{shoes[1].title}</h4>
-            <p>{shoes[1].price}</p>
-          </div>
-          <div className="col-md-4">
-            <img
-              src="https://codingapple1.github.io/shop/shoes3.jpg"
-              width="80%"
-            />
-            <h4>{shoes[2].title}</h4>
-            <p>{shoes[2].price}</p>
-          </div>
-        </div>
-      </div>
+      <Routes>
+        {/* 메인페이지 */}
+        <Route
+          path="/"
+          element={
+            <>
+              <div className="main-bg"></div>
+              <div className="container">
+                <div className="row">
+                  {shoes.map((a, i) => {
+                    return <Card key={i} shoes={shoes[i]} i={i}></Card>;
+                  })}
+                </div>
+              </div>
+            </>
+          }
+        />
+        <Route path="/detail" element={<Detail />} />
+      </Routes>
+    </div>
+  );
+}
+
+// shoes는 App에 있으니 App ->Card전송해줘야함 (props 문법으로)
+function Card(props) {
+  return (
+    <div className="col-md-4">
+      <img
+        src={
+          "https://codingapple1.github.io/shop/shoes" + (props.i + 1) + ".jpg"
+        }
+        width="80%"
+      />
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.price}</p>
     </div>
   );
 }

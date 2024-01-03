@@ -1,6 +1,3 @@
-let a = 10;
-let b = 20;
-
 let data = [
   {
     id: 0,
