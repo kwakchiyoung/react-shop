@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <Navbar bg="light" data-bs-theme="light">
         <Container>
-          <Navbar.Brand href="#home">무신사</Navbar.Brand>
+          <Navbar.Brand href="#home">무신사샵</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
